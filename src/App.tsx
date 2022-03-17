@@ -2,9 +2,10 @@ import { useState } from "react";
 import "./App.css";
 import List from "./components/List";
 import copyListItem from "./helpers/copy-list-item";
+import modifyListState from "./helpers/modify-list-state";
 
 function App() {
-  const [lists, setLists] = useState([
+  const [lists, setLists] = useState<ListModel[]>([
     {
       id: "listA",
       list: [
@@ -28,22 +29,7 @@ function App() {
       throw Error("Item not in any List");
     }
 
-    setLists(prev => {
-      const copiedPrev = [...prev];
-
-      copiedPrev.map(listItem => {
-        const filteredSubList = listItem.list.filter(
-          item => item.id !== itemId
-        );
-        listItem.list = filteredSubList;
-        if (listItem.id === listId) {
-          listItem.list.push(copiedItem);
-        }
-        return listItem;
-      });
-
-      return copiedPrev;
-    });
+    setLists(prev => modifyListState(prev, listId, itemId, copiedItem));
   };
 
   return (
