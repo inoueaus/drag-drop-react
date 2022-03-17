@@ -32,6 +32,21 @@ function App() {
     setLists(prev => modifyListState(prev, listId, itemId, copiedItem));
   };
 
+  const addItem = (listId: string, text: string) =>
+    setLists(prev =>
+      prev.map(item => {
+        if (item.id === listId) {
+          const newItem = { id: item.id, list: [...item.list] };
+          newItem.list.push({
+            id: Math.random().toString(36).substring(2, 5),
+            text,
+          });
+          return newItem;
+        }
+        return item;
+      })
+    );
+
   return (
     <div className="App">
       {lists.map(listItem => (
@@ -39,6 +54,7 @@ function App() {
           key={listItem.id}
           listItem={listItem}
           handleDragEvent={handleDropEvent}
+          handleAddItem={addItem}
         />
       ))}
     </div>

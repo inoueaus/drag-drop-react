@@ -20,3 +20,11 @@ li {
     padding: 1rem;
     margin-bottom: 1rem;
 }
+
+.inner-card {
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
